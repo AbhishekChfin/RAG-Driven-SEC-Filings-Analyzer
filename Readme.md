@@ -8,8 +8,7 @@ It focuses on **structural accuracy**, **traceable retrieval**, and **low-latenc
 The pipeline parses raw SEC EDGAR HTML filings, performs item-wise structural chunking, embeds the chunks using a Sentence Transformer model, and stores them in Supabase with pgvector for cosine similarity search.
 
 ## Architecture Overview
-
-
+![RAG Pipeline](images/Rag_pipeline.png)
 
 
 ## Data Processing Pipeline
