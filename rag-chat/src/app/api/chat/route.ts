@@ -8,7 +8,6 @@ console.log("ENV CHECK:", {
   GEMINI_KEY: !!process.env.GEMINI_API_KEY,
 });
 
-
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic"; // no caching
 
