@@ -6,7 +6,7 @@ This project is a **Retrieval-Augmented Generation (RAG)** application designed 
 
 ### Motivation
 
-My background is mostly classical ML and forecasting models (LSTM, ARIMA, ARCH/GARCH). This project bridges the gap between those traditional modeling workflows and modern LLM-based systems by implementing an end-to-end, production-style RAG pipeline from raw financial filings to retrieval and generation:
+As a data scientist with background in forecasting, time series modeling (LSTM, ARIMA, ARCH, GARCH), I wanted to deepen my understanding of how LLMs work and build production-ready RAG applications. This project serves as a foundation for understanding:
 
 - Data cleaning and preprocessing at scale
 - Semantic chunking strategies
@@ -116,7 +116,7 @@ Instead of feeding entire documents:
 
 **Key Improvement**: BeautifulSoup handles nested HTML gracefully, unlike regex which fails on complex structures.
 
-**Code Location**: [src/data_cleaning.py](src/data_cleaning.py)
+**Code Location**: [src/ingestion/data_cleaning.py](src/ingestion/data_cleaning.py)
 
 **Why Not Just Regex?**
 
@@ -159,7 +159,7 @@ overlap = 128 tokens
 # 4. Add overlap for context preservation
 ```
 
-**Code Location**: [src/chunking.py](src/chunking.py)
+**Code Location**: [src/chunking/chunker.py](src/chunking/chunker.py)
 
 ### 4. Embedding Generation
 
@@ -180,7 +180,7 @@ overlap = 128 tokens
 - Fast inference
 - Reliable for financial text
 
-**Embedding Service**: FastAPI microservice
+**Embedding Service**: FastAPI microservice ([src/embeddings/service.py](src/embeddings/service.py))
 
 ```python
 # FastAPI Endpoint
@@ -202,7 +202,7 @@ POST /embed
 - Cost-effective for large-scale operations
 - Same embedding model ensures consistent vector space
 
-**Code Location**: [rag-chat/Embedding_services/embedding_service.py](rag-chat/Embedding_services/embedding_service.py)
+**Code Location**: [src/embeddings/service.py](src/embeddings/service.py)
 
 ### 5. Database Setup (Supabase + pgvector)
 
@@ -328,13 +328,17 @@ SEC-Analyzer/
 ├── README.md                        # This file
 │
 ├── src/                             # Core Python pipeline
-│   ├── downloader.py               # SEC EDGAR API interaction
-│   ├── parser.py                   # Regex-based 10-K parsing
-│   ├── data_cleaning.py            # HTML → JSON table extraction
-│   ├── chunking.py                 # Recursive chunking
-│   ├── embedder.py                 # Embedding generation
-│   ├── database.py                 # Supabase operations
-│   └── __pycache__/
+│   ├── ingestion/
+│   │   ├── loader.py               # SEC EDGAR downloads
+│   │   ├── parser.py               # 10-K section parsing
+│   │   └── data_cleaning.py        # HTML → JSON table extraction
+│   ├── chunking/
+│   │   └── chunker.py              # Recursive chunking
+│   ├── embeddings/
+│   │   ├── embedder.py             # Batch embedding generation
+│   │   └── service.py              # FastAPI query-embedding service
+│   └── vectordb/
+│       └── vector_store.py         # Supabase vector storage
 │
 ├── data/
 │   └── raw/
@@ -354,9 +358,6 @@ SEC-Analyzer/
 │   │   ├── globals.css
 │   │   └── api/chat/
 │   │       └── route.ts            # RAG endpoint (Main logic!)
-│   │
-│   ├── Embedding_services/
-│   │   └── embedding_service.py    # FastAPI embedding server
 │   │
 │   └── public/                     # Static assets
 │
@@ -456,18 +457,11 @@ pip install -r requirements.txt
 cp .env.example .env.local
 # Add: SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, GEMINI_API_KEY, EMBEDDING_SERVICE_URL
 
-# 5. Download data
-python main.py --download
+# 5. Run the complete SEC ingestion, embedding, and upload pipeline
+python main.py
 
-# 6. Process data (clean, chunk, embed)
-python main.py --process
-
-# 7. Upload to Supabase
-python main.py --upload
-
-# 8. Start FastAPI embedding service
-cd rag-chat/Embedding_services
-uvicorn embedding_service:app --reload
+# 6. Start the FastAPI embedding service (from the project root)
+uvicorn src.embeddings.service:app --reload --port 5001
 
 # 9. Start Next.js (in new terminal)
 cd rag-chat

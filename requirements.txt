@@ -11,3 +11,5 @@ tqdm==4.67.1
 torch>=2.5.1
 sec-edgar-downloader>=4.0.0
 pdfkit>=1.0.0
+fastapi>=0.115.0
+uvicorn>=0.30.0

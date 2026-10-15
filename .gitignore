@@ -1,1 +1,43 @@
 .DS_Store 
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.venv/
+venv/
+.pytest_cache/
+
+# Next.js
+**/.next/
+**/node_modules/
+**/out/
+
+# Build and logs
+dist/
+build/
+*.log
+
+# Data and local artifacts
+data/
+datasets/
+*.csv
+*.parquet
+*.pkl
+*.joblib
+
+# OS and editor files
+.DS_Store
+.vscode/
+.idea/
+
+# Next.js
+**/.next/
+**/node_modules/

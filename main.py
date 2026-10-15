@@ -3,11 +3,11 @@ import copy
 from pathlib import Path
 
 # Local imports
-from src.downloader import download_filings
-from src.chunking import process_and_chunk_files
-from src.data_cleaning import flatten_table_row_financial
-from src.embedder import Embedder
-from src.database import VectorDB
+from src.ingestion.loader import download_filings
+from src.chunking.chunker import process_and_chunk_files
+from src.ingestion.data_cleaning import flatten_table_row_financial
+from src.embeddings.embedder import Embedder
+from src.vectordb.vector_store import VectorDB
 
 
 # Configuration
