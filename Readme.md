@@ -1,5 +1,13 @@
 # LLM-Driven SEC 10-K & Earnings Call Analyzer
 
+[![Next.js](https://img.shields.io/badge/Next.js-000000?logo=next.js&logoColor=white)](https://nextjs.org/)
+[![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?logo=supabase&logoColor=white)](https://supabase.com/)
+[![Gemini](https://img.shields.io/badge/Google_Gemini-8E75B2?logo=googlegemini&logoColor=white)](https://ai.google.dev/)
+![License](https://img.shields.io/badge/License-MIT-green)
+![Status](https://img.shields.io/badge/Status-Completed-green)
+
 ## Project Overview
 
 This project is a **Retrieval-Augmented Generation (RAG)** application designed to analyze SEC 10-K filings and answer financial questions using Large Language Models (LLMs). Built as a learning project to understand RAG fundamentals in finance and data science.
