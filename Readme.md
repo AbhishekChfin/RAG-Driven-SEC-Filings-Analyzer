@@ -327,56 +327,9 @@ export async function POST(req: NextRequest) {
 
 ---
 
-## Project Structure
+## Python libraries and their uses
 
-```
-SEC-Analyzer/
-├── main.py                          # Entry point
-├── requirements.txt                 # Python dependencies
-├── README.md                        # This file
-│
-├── src/                             # Core Python pipeline
-│   ├── ingestion/
-│   │   ├── loader.py               # SEC EDGAR downloads
-│   │   ├── parser.py               # 10-K section parsing
-│   │   └── data_cleaning.py        # HTML → JSON table extraction
-│   ├── chunking/
-│   │   └── chunker.py              # Recursive chunking
-│   ├── embeddings/
-│   │   ├── embedder.py             # Batch embedding generation
-│   │   └── service.py              # FastAPI query-embedding service
-│   └── vectordb/
-│       └── vector_store.py         # Supabase vector storage
-│
-├── data/
-│   └── raw/
-│       └── sec-edgar-filings/
-│           └── AAPL/10-K/          # Downloaded 10-K filings (HTML)
-│
-├── rag-chat/                        # Next.js frontend + API
-│   ├── package.json
-│   ├── tsconfig.json
-│   ├── next.config.ts
-│   ├── postcss.config.mjs
-│   ├── eslint.config.mjs
-│   │
-│   ├── src/app/
-│   │   ├── page.tsx                # Chat UI
-│   │   ├── layout.tsx
-│   │   ├── globals.css
-│   │   └── api/chat/
-│   │       └── route.ts            # RAG endpoint (Main logic!)
-│   │
-│   └── public/                     # Static assets
-│
-└── Images/                         # Documentation images
-```
-
----
-
-## Key Technologies
-
-| Component | Technology | Purpose |
+| Component | Libraries | Purpose |
 |-----------|-----------|---------|
 | Data Pipeline | Python (BeautifulSoup, Pandas) | Extract & clean 10-K filings |
 | Chunking | Python | Recursive text splitting |
@@ -384,8 +337,8 @@ SEC-Analyzer/
 | Embedding API | FastAPI | Serve embeddings |
 | Database | Supabase (PostgreSQL + pgvector) | Vector similarity search |
 | Frontend | Next.js + React | Chat UI |
-| API | Next.js API Routes | RAG orchestration |
-| LLM | Google Gemini 2.5 Flash | Answer generation |
+| API | Next.js API Routes | Chatbot Orchestration |
+| LLM | Google Gemini 2.5 Flash | Response generation |
 
 ---
 
@@ -427,9 +380,9 @@ SEC-Analyzer/
    - Log queries and measure answer satisfaction
    - Implement feedback loop
 
-7. **Multi-LLM Support**:
+7. **Multi-agentic Workflow**:
    - Currently hardcoded to Gemini
-   - Make it pluggable (Claude, GPT-4, local models)
+   - Make it pluggable using langchain (Claude, GPT-4, local models)
 
 ---
 
@@ -515,13 +468,13 @@ npm run dev
 - Remove "%" only columns before JSON conversion
 - Later realized: Could just drop them during flattening
 
-**Learning**: Pre-process carefully to avoid post-processing redundancy
+**Learning**: Pre-process carefully to avoid post-processing workload.
 
 ### Challenge 3: Semantic Chunking Too Expensive
 
-**Problem**: Considered semantic chunking but would create 5-10K chunks per filing
+**Problem**: Considered semantic chunking but would create >10K chunks per filing
 
-**Solution**: Used recursive chunking instead (creates ~2.5K chunks)
+**Solution**: Used recursive chunking instead (creates ~4.1K chunks)
 
 **Learning**: Balance quality with cost/complexity trade-offs
 
@@ -582,5 +535,3 @@ MIT License - see LICENSE file for details
 For questions about this project or to discuss RAG/LLM topics, feel free to reach out via GitHub Issues.
 
 **Key Learning Outcome**: Understanding how to build production RAG systems that balance cost, quality, and complexity.
-
-**Last Updated**: January 2026
