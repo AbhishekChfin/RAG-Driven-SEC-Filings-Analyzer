@@ -141,11 +141,11 @@ Instead of feeding entire documents:
 
 | Method | Pros | Cons | Decision |
 |--------|------|------|----------|
-| Fixed-size | Simple, predictable | Breaks semantic meaning | ❌ Rejected |
-| Structural | Preserves document hierarchy | Chunks too large/small | ❌ Partial |
-| Semantic | Perfect coherence | Too many chunks (high cost) | ❌ Too expensive |
-| Recursive | Balances coherence + size | Slightly complex | ✓ **CHOSEN** |
-| Contextual + LLM | High quality | Very expensive | ❌ Too costly |
+| Fixed-size | Simple, predictable | Breaks semantic meaning | Rejected |
+| Structural | Preserves document hierarchy | Chunks too large/small | Partial |
+| Semantic | Perfect coherence | Too many chunks (high cost) | Too expensive |
+| Recursive | Balances coherence + size | Slightly complex | **CHOSEN** |
+| Contextual + LLM | High quality | Very expensive | Too costly |
 
 **Why Recursive Chunking?**
 
@@ -178,8 +178,6 @@ overlap = 128 tokens
 | Model | Dimensions | Speed | Cost | Chosen |
 |-------|-----------|-------|------|--------|
 | `all-mpnet-base-v2` (SentenceTransformers) | 768 | Fast ✓ | Free ✓ | **YES** |
-| `text-embedding-3-large` (OpenAI) | 3072 | Medium | $$$ | No |
-| `embedding-001` (Google) | 768 | Medium | $ | Could use |
 
 **Choice**: `all-mpnet-base-v2` (SentenceTransformers)
 
@@ -187,21 +185,6 @@ overlap = 128 tokens
 - Runs locally (no API cost)
 - Fast inference
 - Reliable for financial text
-
-**Embedding Service**: FastAPI microservice ([src/embeddings/service.py](src/embeddings/service.py))
-
-```python
-# FastAPI Endpoint
-POST /embed
-{
-  "text": "Apple's revenue in 2023..."
-}
-↓
-# Returns
-{
-  "embedding": [0.123, -0.456, ..., 0.789]  # 768 dimensions
-}
-```
 
 **Why not use OpenAI embeddings directly?**
 
