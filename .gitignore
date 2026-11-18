@@ -41,3 +41,6 @@ datasets/
 # Next.js
 **/.next/
 **/node_modules/
+
+
+SUPABASE_SETUP.md
