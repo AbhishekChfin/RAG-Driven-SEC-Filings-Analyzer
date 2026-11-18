@@ -42,5 +42,4 @@ datasets/
 **/.next/
 **/node_modules/
 
-
 SUPABASE_SETUP.md
