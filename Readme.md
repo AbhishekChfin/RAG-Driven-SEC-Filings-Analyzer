@@ -151,21 +151,7 @@ Instead of feeding entire documents:
 
 - Preserves semantic coherence while staying within size limits
 - Creates fewer chunks than semantic chunking (cost-effective with Supabase pgvector)
-- Reduces similarity search overhead
 
-**Implementation**:
-
-```python
-# Recursive chunking with overlaps
-chunk_size = 1024 tokens
-overlap = 128 tokens
-
-# Algorithm:
-# 1. Split by sentence/paragraph
-# 2. If too large, split by sentence
-# 3. If still large, split by character
-# 4. Add overlap for context preservation
-```
 
 **Code Location**: [src/chunking/chunker.py](src/chunking/chunker.py)
 
